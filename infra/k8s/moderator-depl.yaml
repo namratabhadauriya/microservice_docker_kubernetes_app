@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moderator-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moderator
+  template:
+    metadata:
+      labels:
+        app: moderator
+    spec:
+      containers:
+        - name: moderator
+          image: namratabhadauriya/moderator
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: moderator-srv
+spec:
+  selector:
+    app: moderator
+  ports:
+    - name: moderator
+      protocol: TCP
+      port: 5003
+      targetPort: 5003
